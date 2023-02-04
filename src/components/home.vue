@@ -1,27 +1,40 @@
 <script setup>
  import {onMounted, ref,onBeforeMount} from 'vue';
  import { getAuth,onAuthStateChanged} from "firebase/auth";
+ import { doc,setDoc} from "firebase/firestore";
+import {db} from '../main.js'
  import { useRouter } from 'vue-router';
-import { async } from '@firebase/util';
+//import { async } from '@firebase/util';
 const auth = getAuth();
 
 const router=useRouter();
 
+ 
+  
+  
 
+  const gett= ()=>{
+    const uid =auth.currentUser.uid;
+    setDoc(doc(db, "user",uid ), {
+  name: "Los Angeles",
+  state: "CA",
+  country: "USA"
+});  }
 const name=ref("");
 onAuthStateChanged(auth, (user) => {
   if (user!=null) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-   
+     
     console.log(user.uid);
     const imageURL= user.photoURL;
     document.getElementById("img").src=imageURL;
     
     name.value=user.displayName;
   } else {
-    router.push('/')
+      router.push('/')
   }
+
 })
 
 
@@ -48,6 +61,7 @@ const out=()=>{
 <h1 >{{ name }}</h1>
 <button @click="out" >signout</button>
 <p >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe, quibusdam.</p>
+<button @click="gett">push details</button>
 <router-view/>
 </template>
 

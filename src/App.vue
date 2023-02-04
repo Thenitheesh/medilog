@@ -3,8 +3,7 @@ import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'vue-router';
 const auth = getAuth();
 const router=useRouter();
-
-onAuthStateChanged(auth, (user) => {
+ onAuthStateChanged(auth, (user) => {
   if (user!=null) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
@@ -12,14 +11,13 @@ onAuthStateChanged(auth, (user) => {
   }
 })
 
-
 </script>
 
 <template>
  
-  <a href="/dashbord">dashbord</a> 
+  <a href="/dashbord">dashbord</a>
   <a href="/login">login</a> 
-  <a href="/home">home</a>
+  <a href="/home"></a>
  <router-view/>
 </template>
 
