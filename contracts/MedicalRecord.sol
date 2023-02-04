@@ -27,11 +27,11 @@ contract MedicalRecord {
         return _fullName;
     }
 
-    function addRecord(address _patientAddress, string memory _recordHash, string memory _recordType, string memory _recordTimestamp) public returns  (string memory,string memory) {
+    function addRecord(address _patientAddress,address _recordAddress, string memory _recordHash, string memory _recordType, string memory _recordTimestamp) public returns  (string memory,string memory) {
         
         require(patients[_patientAddress].patientAddress == _patientAddress);
       
-        records[ patients[_patientAddress].patientAddress] = Record(patients[_patientAddress].patientAddress, _patientAddress, _recordHash, _recordType, _recordTimestamp);
+        records[ patients[_patientAddress].patientAddress] = Record(_recordAddress, _patientAddress, _recordHash, _recordType, _recordTimestamp);
         return (_recordTimestamp,patients[_patientAddress].fullName);
     }
 
