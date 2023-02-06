@@ -1,10 +1,10 @@
 <script setup>
  import {onMounted, ref,onBeforeMount} from 'vue';
  import { getAuth,onAuthStateChanged} from "firebase/auth";
- import { doc,setDoc} from "firebase/firestore";
+ import { doc,setDoc,getDoc} from "firebase/firestore";
 import {db} from '../main.js'
  import { useRouter } from 'vue-router';
-//import { async } from '@firebase/util';
+
 const auth = getAuth();
 
 const router=useRouter();
@@ -13,20 +13,25 @@ const router=useRouter();
   
   
 
-  const gett= ()=>{
-    const uid =auth.currentUser.uid;
+   const gett= async ()=>{
+    /* const uid =auth.currentUser.uid;
     setDoc(doc(db, "user",uid ), {
   name: "Los Angeles",
   state: "CA",
   country: "USA"
-});  }
+}); */ 
+const uid =auth.currentUser.uid;
+const docRef = doc(db, "user", uid);
+const docSnap =await  getDoc(docRef);
+console.log(docSnap.data().level);
+ }
 const name=ref("");
 onAuthStateChanged(auth, (user) => {
   if (user!=null) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
      
-    console.log(user.uid);
+    //console.log(user.uid);
     const imageURL= user.photoURL;
     document.getElementById("img").src=imageURL;
     

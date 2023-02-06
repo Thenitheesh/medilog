@@ -2,6 +2,8 @@
 import { ref,onBeforeMount} from 'vue'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'vue-router';
+import { doc,setDoc,getDoc} from "firebase/firestore";
+import {db} from '../main.js'
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const router = useRouter();
@@ -126,8 +128,8 @@ const signin = (err) => { // we also renamed this method
 
 .belowpara {
   position: absolute;
-  left: 343px;
-  top: 550px;
+  left: 120px;
+  top: 500px;
   color: #c7c8ca;
   font-size: 0.68rem;
   font-weight: 500;
@@ -140,8 +142,8 @@ const signin = (err) => { // we also renamed this method
   position: absolute;
   width: 260px;
   height: 35px;
-  left: 343px;
-  top: 460px;
+  left: 120px;
+  top: 410px;
   background-color: #5138EE;
   border: 1.5px solid #5138EE;
   border-radius: 23px;
@@ -150,8 +152,8 @@ const signin = (err) => { // we also renamed this method
 
 .forpara {
   position: absolute;
-  left: 489px;
-  top: 434px;
+  left: 282px;
+  top: 384px;
   font-size: 0.7rem;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
@@ -164,8 +166,8 @@ const signin = (err) => { // we also renamed this method
   position: absolute;
   width: 260px;
   height: 35px;
-  left: 343px;
-  top: 390px;
+  left: 120px;
+  top: 340px;
 
   border: 1.5px solid #e4e5e8;
   border-radius: 23px;
@@ -174,8 +176,8 @@ const signin = (err) => { // we also renamed this method
 
 .passpara {
   position: absolute;
-  left: 343px;
-  top: 365px;
+  left: 120px;
+  top: 315px;
   font-size: 0.8rem;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
@@ -188,8 +190,8 @@ const signin = (err) => { // we also renamed this method
   position: absolute;
   width: 260px;
   height: 35px;
-  left: 343px;
-  top: 320px;
+  left: 120px;
+  top: 270px;
 
   border: 1.5px solid #e4e5e8;
   border-radius: 23px;
@@ -198,8 +200,8 @@ const signin = (err) => { // we also renamed this method
 
 .emailpara {
   position: absolute;
-  left: 343px;
-  top: 295px;
+  left: 120px;
+  top: 245px;
   font-size: 0.8rem;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
@@ -207,8 +209,8 @@ const signin = (err) => { // we also renamed this method
 
 h2 {
   position: absolute;
-  top: 254px;
-  left: 343px;
+  top: 204px;
+  left: 120px;
   width: 260px;
   height: 10px;
   text-align: center;
@@ -250,8 +252,8 @@ h2 span {
   position: absolute;
   width: 260px;
   height: 35px;
-  left: 343px;
-  top: 211px;
+  left: 120px;
+  top: 161px;
   background-color: transparent;
   border: 1.5px solid #e4e5e8;
   border-radius: 23px;
@@ -261,8 +263,8 @@ h2 span {
 .logbelow {
   color: black;
   position: absolute;
-  left: 343px;
-  top: 162px;
+  left: 120px;
+  top: 112px;
   font-size: 0.9rem;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
@@ -273,26 +275,27 @@ h2 span {
   color: black;
   font-size: 1.8rem;
   position: absolute;
-  left: 343px;
+  left: 120px;
   font-family: 'Poppins', sans-serif;
-  top: 120px;
+  top: 70px;
   font-weight: bold;
 }
 
 .line2 {
   transform: rotate(180deg);
   position: absolute;
-  height: 453px;
-  top: 205px;
-  right: 331px;
+    height: 382px;
+    top: 197px;
+    right: 157px;
 }
 
 .line1 {
   position: absolute;
-  width: 473.54px;
-  height: 618px;
-  top: 95px;
-  right: 282px;
+  
+    width: 419.54px;
+    height: 530px;
+    top: 95px;
+    right: 108px;
 }
 
 .card3 {
@@ -308,10 +311,11 @@ h2 span {
 
 .card1 {
 
-  width: 1108px;
-  height: 600px;
-  left: 68px;
-  top: 114px;
+  width: 1046px;
+    height: 579px;
+    margin-top: 24px;
+  position: absolute;
+    left: 223px;
   display: flex;
   justify-content: flex-end;
   background: #FFFFFF;
@@ -322,8 +326,8 @@ h2 span {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 554px;
-  height: 600px;
+  width: 526px;
+  height: 579px;
 
 
   background: linear-gradient(33.41deg, #533BEE 0%, #9181F4 99.33%);

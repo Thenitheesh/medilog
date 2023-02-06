@@ -1,4 +1,5 @@
 <script setup >
+
 /*import {ref} from 'vue';
 import { getFirestore } from "firebase/firestore";
 import { getAuth} from "firebase/auth";
@@ -18,11 +19,6 @@ import { getAuth} from "firebase/auth";
 
 <template>
  
-  
-<h1>Dashbord</h1>
-<input type="file" id="hell">
-<button @click="gett">get</button>
- <router-view/>
 </template>
 
 <style scoped>

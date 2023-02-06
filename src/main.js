@@ -5,6 +5,7 @@ import router from "./router";
 import { initializeApp } from "firebase/App";
 import { getFirestore } from "firebase/firestore";
 import { browserLocalPersistence,getAuth,setPersistence,} from "firebase/auth";
+import './assets/tailwind.css'
 const firebaseConfig = {
   apiKey: "AIzaSyDTk2SF4sfPtSuAaf7fxdmjr6Z9rD9SlNo",
   authDomain: "medilog-32448.firebaseapp.com",

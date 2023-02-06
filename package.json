@@ -9,14 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.9",
+    "@heroicons/vue": "^2.0.14",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@vue-hero-icons/outline": "^1.7.2",
     "firebase": "^9.16.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
     "vite": "^4.0.0"
   }
 }
