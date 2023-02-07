@@ -3,6 +3,7 @@ import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import HelloWorld from './components/dashbord.vue'
 const auth = getAuth();
 const router=useRouter();
 const dashbord='dashbord';
@@ -15,10 +16,12 @@ const dashbord='dashbord';
     document.getElementById("img").src=imageURL;
   }
 })
-
+if(window.location.href=='http://localhost:5173/'){
+  router.push('/dashbord')
+}
 const navigation = [
-  { name: 'Dashboard', href: '/dashbord', current: true },
-  { name: 'Login', href: '/login', current: false },
+  { name: 'Dashboard', href: '/dashbord', current: false },
+  { name: 'Login', href: '/login', current: true },
   { name: 'home', href: '/home', current: false },
  
 ]
@@ -38,8 +41,8 @@ const navigation = [
         </div>
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex flex-shrink-0 items-center">
-            <img class="block h-8 w-auto lg:hidden" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
-            <img class="hidden h-8 w-auto lg:block" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+            <img class="block h-10 w-auto lg:hidden" src="./assets/Frame1.svg" alt="Your Company" />
+            <img class="hidden h-10 w-auto lg:block" src="./assets/Frame1.svg" alt="Your Company" />
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
@@ -85,7 +88,7 @@ const navigation = [
       </div>
     </DisclosurePanel>
   </Disclosure>
-  
+ 
  <router-view/>
 </template>
 

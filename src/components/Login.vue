@@ -59,7 +59,7 @@ const signin = (err) => { // we also renamed this method
       <img class="googleicon" src="/src/assets/icons8-google.svg" alt="">
       <p class="sigpara">Sign in with Google</p>
     </button>
-    <h2><span>or Sign in with Email</span></h2>
+    <h2 class="orsign"><span>or Sign in with Email</span></h2>
     <p class="emailpara">Email</p>
     <div class="select-box2">
       <input class="emailin" v-model="Email" type="email">
@@ -86,6 +86,7 @@ const signin = (err) => { // we also renamed this method
 </template>
 
 <style scoped>
+
 .passin {
   background-color: transparent;
   border: none;
@@ -207,7 +208,7 @@ const signin = (err) => { // we also renamed this method
   font-family: 'Poppins', sans-serif;
 }
 
-h2 {
+.orsign {
   position: absolute;
   top: 204px;
   left: 120px;
@@ -219,7 +220,7 @@ h2 {
   margin: 10px 0 20px;
 }
 
-h2 span {
+.orsign span {
   font-size: 0.7rem;
   font-family: 'Poppins', sans-serif;
   background: #fff;
@@ -336,5 +337,30 @@ h2 span {
 
 .read-the-docs {
   color: #888;
+}
+@media screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .card2{
+    width: 0px;
+    height: 0;
+   
+  }
+   .card1{
+    left: 24px;
+    width: 347px;
+  } 
+  .line1,.line2{
+    width: 0px;
+    height: 0;
+  }
+  .belowpara,.loginbtn,.select-box3,.passpara,.select-box2,.emailpara,.select-box1,.logbelow,.login{
+    left: 55px;
+  }
+.orsign{
+    left: 55px;
+  }
+  .forpara{
+    left: 218px;
+  }
 }
 </style>
