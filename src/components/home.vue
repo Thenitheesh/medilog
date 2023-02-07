@@ -51,7 +51,7 @@ const out=()=>{
   auth.signOut().then(() => {
     alert("signout successfully")
     console.log("signout successfully")
-    router.push('/')
+    router.push('/dashbord')
   }).catch((error) => {
     // An error happened.
   });

@@ -77,7 +77,7 @@ const signin = (err) => { // we also renamed this method
       <img class="line1" src="/src/assets/Line1.svg" alt="">
       <img class="line2" src="/src/assets/Line1.svg" alt="">
       <div class="card3">
-
+        <img src="../assets/onlinedoctor.svg" alt="">
       </div>
     </div>
   </div>
