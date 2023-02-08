@@ -23,6 +23,7 @@ if(window.location.href=='https://'+window.location.host+'/' || window.location.
   router.push('/dashbord')
   //const active = false;
 }
+
 const navigation = [
   { name: 'Dashboard', href: '/dashbord', current: false },
   { name: 'Login', href: '/login', current: true },
