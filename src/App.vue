@@ -8,12 +8,15 @@ import { bool } from "prop-types";
 const auth = getAuth();
 const router=useRouter();
 const dashbord='dashbord';
+
  onAuthStateChanged(auth, (user) => {
   if (user!=null) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
     router.push('/home')
     const imageURL= user.photoURL;
+  const  name=user.displayName;
+  document.getElementById("name").innerHTML='Hi'+" "+name;
     document.getElementById("img").src=imageURL;
   }else{
     document.getElementById("img").src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -56,6 +59,7 @@ const navigation = [
           </div>
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <p class="mr-3 " id="name"></p>
           <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
             <span class="sr-only">View notifications</span>
             <BellIcon class="h-6 w-6" aria-hidden="true" />
@@ -93,10 +97,8 @@ const navigation = [
 
 <style scoped>
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+#name {
+ font-family:  'Poppins', sans-serif
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>

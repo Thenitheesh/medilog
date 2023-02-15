@@ -10,7 +10,7 @@ const auth = getAuth();
 const router=useRouter();
 
  
-const names = 'Nitheesh 12PM'
+const names = 'Nitheesh 10AM'
   
 
    const gett= async ()=>{
@@ -62,20 +62,31 @@ const out=()=>{
  
   
 
-<div class="p-6 max-w-sm mx-auto flex">
+<div class="p-6 max-w-3xl gap-6 mx-auto flex">
+  
   <div class=" max-w-sm  bg-white rounded-xl shadow-lg space-y-2 flex ">
     <img class="w-20 h-20 md:h-auto rounded-xl" src="../assets/avater.png" alt="">
   <div class="flex flex-col"><div class="px-2 mt-2 subpixel-antialiased font-medium">Heart diagonsis</div>
   <div class=" mb-2 text-base subpixel-antialiased font-normal text-gray-500">{{ names }}</div>
   
 </div></div>
+<div class=" max-w-sm  bg-white rounded-xl shadow-lg space-y-2 flex ">
+    <img class="w-20 h-20 md:h-auto rounded-xl" src="../assets/avater.png" alt="">
+  <div class="flex flex-col"><div class="px-2 mt-2 subpixel-antialiased font-medium">kidney infection
+  </div>
+  <div class=" mb-2 text-base subpixel-antialiased font-normal text-gray-500">Pavan 2PM</div>
   
-  <div class="p-6 max-w-sm mx-auto"></div> 
-  <div class="p-6 max-w-sm mx-auto"></div>
+</div></div>
+<div class=" max-w-sm  bg-white rounded-xl shadow-lg space-y-2 flex ">
+    <img class="w-20 h-20 md:h-auto rounded-xl" src="../assets/avater.png" alt="">
+  <div class="flex flex-col"><div class="px-2 mt-2 subpixel-antialiased font-medium">Brain tumor</div>
+  <div class=" mb-2 text-base subpixel-antialiased font-normal text-gray-500">Akshay 3PM</div>
+  
+</div></div>
+ 
 </div>
 <h1>home</h1>
 <img :src="imageURL" id="img" referrerpolicy="no-referrer">
-<h1 >{{ name }}</h1>
 <button @click="out" >signout</button>
 <p >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe, quibusdam.</p>
 <button @click="gett">push details</button>
