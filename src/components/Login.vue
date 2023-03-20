@@ -231,7 +231,7 @@ const signin = (err) => { // we also renamed this method
 .sigpara {
   position: absolute;
   left: 94px;
-  top: 8px;
+  top: 4px;
   z-index: 5;
   font-size: 0.7rem;
   font-weight: 500;

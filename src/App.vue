@@ -11,8 +11,7 @@ const dashbord='dashbord';
 
  onAuthStateChanged(auth, (user) => {
   if (user!=null) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
+   
     router.push('/home')
     const imageURL= user.photoURL;
   const  name=user.displayName;
@@ -20,11 +19,13 @@ const dashbord='dashbord';
     document.getElementById("img").src=imageURL;
   }else{
     document.getElementById("img").src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    document.getElementById("name").innerHTML="";
+  
   }
 })
 if(window.location.href=='https://'+window.location.host+'/' || window.location.href=='http://'+window.location.host+'/'){
   router.push('/dashbord')
-  //const active = false;
+ 
 }
 
 const navigation = [

@@ -49,8 +49,8 @@ import { getAuth} from "firebase/auth";
   <div class="bg-rgb(245, 245, 245)  pb-24 sm:pb-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:text-center">
-        <h2 class="text-lg font-semibold leading-8 tracking-tight text-indigo-600 writer-text">Major Inhouse 2023</h2>
-        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Diagnostic Data governance system using blockchain</p>
+        <!-- <h2 class="text-lg font-semibold leading-8 tracking-tight text-indigo-600 writer-text">Major Inhouse 2023</h2> -->
+        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Medical Data governance system using blockchain</p>
         <p class="mt-6 text-lg leading-7 text-gray-600">Blockchain is a distributed ledger system that records transactions in a database made up of blocks where blocks are chained together with the hash value to form a chain-like structure.</p>
       </div>
       <div class="mx-auto mt-4 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
