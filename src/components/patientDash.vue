@@ -14,7 +14,6 @@ const CONTRACT_ABI = configuration.abi;
 const auth = getAuth();
 
 const router = useRouter();
-
 const gett = async () => {
     /* const uid =auth.currentUser.uid;
     setDoc(doc(db, "user",uid ), {
@@ -29,7 +28,20 @@ const gett = async () => {
       console.log(doc.data());
     }) */
 }
+const web3 = new Web3(Web3.givenProvider || 'wss://127.0.0.1:8545')
+var contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
+const enable = () => {
+    ethereum.request({ method: 'eth_requestAccounts' });
+};
+const getrecords = () => {
+    web3.eth.getAccounts().then(async function (accounts) {
+        let address = accounts[0]
+        contract.methods.getRecord(address).call().then(function (result) {
+            console.log(result)
+        });
+    })
+}
 const name = ref("");
 onAuthStateChanged(auth, (user) => {
     if (user != null) {
@@ -47,23 +59,33 @@ onAuthStateChanged(auth, (user) => {
 
 })
 const checkDiagnosis = () => {
-    console.log("hello world")
+    document.getElementById("appoint").style.display = "none";
+    document.getElementById("checkDiag").style.display = "block";
 }
 const bookAppointment = () => {
-    document.getElementById("appoint").style.display = "none";
-    console.log("hello world")
+    document.getElementById("appoint").style.display = "inherit";
+    document.getElementById("checkDiag").style.display = "none";
 }
+
 
 
 const patientName = ref('');
+
+
+const dis = async () => {
+    patientName.value =  auth.currentUser.displayName;
+}
 const Phone = ref('');
 const Appointdate = ref('');
 const prediagnosis = ref('');
 const age = ref('');
 const choosedDocter = ref('');
-const Emaill = ref('');
 const Submit = () => {
     const uid = auth.currentUser.uid;
+    if (patientName.value == '' || Phone.value == '' || Appointdate.value == '' || prediagnosis.value == '' || age.value == '' || choosedDocter.value == '') {
+        document.getElementById("confirmbox").innerHTML = "<span style='color: red;'>Please fill all the fields</span>"
+        return;
+    }
     setDoc(doc(db, "appointment", uid), {
         name: patientName.value,
         phone: Phone.value,
@@ -71,22 +93,28 @@ const Submit = () => {
         Diagnosis: prediagnosis.value,
         date: Appointdate.value,
         specialist: choosedDocter.value,
+    }).then(() => {
+        document.getElementById("confirmbox").innerHTML = "<span style='color: #00A300;'>Appointment Booked</span>"
+        console.log("Document successfully written!");
+    }).catch((error) => {
+        console.error("Error writing document: ", error);
     });
 
 }
-
+dis()
 </script>
 
 <template>
     <div class="space-y-1 px-2 pb-3 pt-4">
-        <button @click="checkDiagnosis"
-            :class="[true ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
-            :aria-current="true ? 'page' : undefined"> Check Diagnosis </button>
         <button @click="bookAppointment"
             :class="[true ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
             :aria-current="true ? 'page' : undefined"> Book Appointment </button>
+        <button @click="checkDiagnosis"
+            :class="[true ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
+            :aria-current="true ? 'page' : undefined"> Check Diagnosis </button>
     </div>
     <div id="appoint">
+
         <div id="ft-form">
             <fieldset>
                 <legend>Appointment request</legend>
@@ -145,14 +173,29 @@ const Submit = () => {
                     </label>
                 </div>
             </fieldset>
-            <button @click="Submit"
+            <div class="two-cols">
+                <button @click="Submit"
+                    :class="[true ? 'bg-indigo-600 text-white ml-5' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
+                    :aria-current="true ? 'page' : undefined"> Submit </button>
+                <p id="confirmbox"></p>
+            </div>
+        </div>
+    </div>
+    <div id="checkDiag">
+        <div class="two-cols">
+            <button @click="getrecords"
                 :class="[true ? 'bg-indigo-600 text-white ml-5' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
-                :aria-current="true ? 'page' : undefined"> Submit </button>
+                :aria-current="true ? 'page' : undefined"> Get Records </button>
+
         </div>
     </div>
 </template>
 
 <style scoped>
+#checkDiag {
+    display: none;
+}
+
 #appoint {
     max-width: 600px;
     margin: 0 auto;

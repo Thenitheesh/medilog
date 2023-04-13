@@ -1,9 +1,9 @@
 <script setup>
-import { ref,onBeforeMount} from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { doc,setDoc,getDoc} from "firebase/firestore";
-import {db} from '../main.js'
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from '../main.js'
 import { async } from '@firebase/util';
 
 const provider = new GoogleAuthProvider();
@@ -20,7 +20,7 @@ const signgoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      
+
       async function setDocu() {
         const uid = auth.currentUser.uid;
         const docRef = doc(db, "user", uid);
@@ -29,12 +29,12 @@ const signgoogle = () => {
           router.push('/home');
         } else {
           // doc.data() will be undefined in this case
-          
+
           router.push('/patientDash');
         }
       }
-  
-   
+
+
       setDocu();
       // ...
     }).catch((error) => {
@@ -68,7 +68,6 @@ const signin = (err) => { // we also renamed this method
 </script>
 
 <template >
-
   <div class="card1">
     <h1 class="login">Login&#128076</h1>
     <p class="logbelow">How do get i started?</p>
@@ -98,12 +97,9 @@ const signin = (err) => { // we also renamed this method
       </div>
     </div>
   </div>
-
-
 </template>
 
 <style scoped>
-
 .passin {
   background-color: transparent;
   border: none;
@@ -302,18 +298,18 @@ const signin = (err) => { // we also renamed this method
 .line2 {
   transform: rotate(180deg);
   position: absolute;
-    height: 382px;
-    top: 197px;
-    right: 157px;
+  height: 382px;
+  top: 197px;
+  right: 157px;
 }
 
 .line1 {
   position: absolute;
-  
-    width: 419.54px;
-    height: 530px;
-    top: 95px;
-    right: 108px;
+
+  width: 419.54px;
+  height: 530px;
+  top: 95px;
+  right: 108px;
 }
 
 .card3 {
@@ -330,10 +326,10 @@ const signin = (err) => { // we also renamed this method
 .card1 {
 
   width: 1046px;
-    height: 579px;
-    margin-top: 24px;
+  height: 579px;
+  margin-top: 24px;
   position: absolute;
-    left: 223px;
+  left: 223px;
   display: flex;
   justify-content: flex-end;
   background: #FFFFFF;
@@ -355,29 +351,44 @@ const signin = (err) => { // we also renamed this method
 .read-the-docs {
   color: #888;
 }
+
 @media screen and (max-width: 768px) {
+
   /* For mobile phones: */
-  .card2{
+  .card2 {
     width: 0px;
     height: 0;
-   
+
   }
-   .card1{
+
+  .card1 {
     left: 24px;
     width: 347px;
-  } 
-  .line1,.line2{
+  }
+
+  .line1,
+  .line2 {
     width: 0px;
     height: 0;
   }
-  .belowpara,.loginbtn,.select-box3,.passpara,.select-box2,.emailpara,.select-box1,.logbelow,.login{
+
+  .belowpara,
+  .loginbtn,
+  .select-box3,
+  .passpara,
+  .select-box2,
+  .emailpara,
+  .select-box1,
+  .logbelow,
+  .login {
     left: 55px;
   }
-.orsign{
+
+  .orsign {
     left: 55px;
   }
-  .forpara{
+
+  .forpara {
     left: 218px;
   }
-}
-</style>
+}</style>

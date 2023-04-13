@@ -5,18 +5,10 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from '../main.js'
 import { useRouter } from 'vue-router';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-/* import navigation  from '../App.vue'
-navigation[2].name="Add Patient"
-console.log(navigation[2].name) */
 
 const auth = getAuth();
 
 const router = useRouter();
-
-/* let uid = auth.currentUser.uid;
-   const docRef = doc(db, "user", uid);
-   const docSnap =  getDoc(docRef);
-   console.log(docSnap.data().level); */
 const gett = async () => {
   /* const uid =auth.currentUser.uid;
   setDoc(doc(db, "user",uid ), {
@@ -173,8 +165,7 @@ const homeMethods = [
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
   </div>
 
-<!-- <button @click="gett">push details</button> -->
-  <button @click="gett">newinput</button>
+
     
 </template>
 
