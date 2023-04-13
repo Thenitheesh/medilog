@@ -4,18 +4,19 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from '../main.js'
 import { useRouter } from 'vue-router';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+/* import navigation  from '../App.vue'
+navigation[2].name="Add Patient"
+console.log(navigation[2].name) */
 
 const auth = getAuth();
 
 const router = useRouter();
 
-const hell = () => {
-
-  router.push('/newinput')
-}
-const names = 'Nitheesh 10AM'
-
-
+/* let uid = auth.currentUser.uid;
+   const docRef = doc(db, "user", uid);
+   const docSnap =  getDoc(docRef);
+   console.log(docSnap.data().level); */
 const gett = async () => {
   /* const uid =auth.currentUser.uid;
   setDoc(doc(db, "user",uid ), {
@@ -23,15 +24,12 @@ name: "Los Angeles",
 state: "CA",
 country: "USA"
 }); */
-  /*  const uid = auth.currentUser.uid;
-   const docRef = doc(db, "user", uid);
-   const docSnap = await getDoc(docRef);
-   console.log(docSnap.data().level); */
-  const docRef = doc(db, "appointment");
+  
+  /* const docRef = doc(db, "appointment");
   const docsSnap = await getDocs(docRef);
   docsSnap.forEach(doc => {
     console.log(doc.data());
-  })
+  }) */
 }
 const name = ref("");
 onAuthStateChanged(auth, (user) => {
@@ -50,12 +48,19 @@ onAuthStateChanged(auth, (user) => {
 
 })
 
+const homeMethods = [
+  { name: 'Add Patient', href: '/newinput', current: true },
+  { name: 'Upload Lab Tests', href: '/uploadtest', current: true },
+  { name: '', href: '/home', current: false },
  
+]
 </script>
 
 <template>
+  <div class="space-y-1 px-2 pb-3 pt-4">
+        <a v-for="item in homeMethods" :key="item.name" as="a" :href="item.href" :class="[item.current ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+      </div>
   <div class="p-6 max-w-3xl gap-6 mx-auto flex">
-
     <div class=" max-w-sm  bg-white rounded-xl shadow-lg space-y-2 flex ">
       <img class="w-20 h-20 md:h-auto rounded-xl" src="../assets/avater.png" alt="">
       <div class="flex flex-col">
@@ -89,7 +94,7 @@ onAuthStateChanged(auth, (user) => {
         <div class="container-fluid">
           <div class="card shadow">
             <div class="card-header py-3">
-              <p class="text-primary m-0 fw-bold">completed appointments</p>
+              <p class="text-primary m-0 fw-bold">Completed Appointments</p>
             </div>
             <div class="card-body">
               <div class="row">
@@ -122,8 +127,6 @@ onAuthStateChanged(auth, (user) => {
                   </thead>
                   <tbody id="tbody1">
                     <tr>
-                      <td><img class="rounded-circle me-2" width="20" height="20" src="assets/img/avatars/avatar1.jpeg">
-                      </td>
                       <td>Mohan chadra</td>
                       <td>cardiologist</td>
                       <td>heart pain</td>
@@ -171,15 +174,10 @@ onAuthStateChanged(auth, (user) => {
   </div>
 
 <!-- <button @click="gett">push details</button> -->
-  <button @click="hell">newinput</button>
-
+  <button @click="gett">newinput</button>
+    
 </template>
 
 <style scoped>
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}</style>
+</style>

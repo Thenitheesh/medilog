@@ -1,6 +1,31 @@
 <script setup >
 import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from '@heroicons/vue/24/outline'
-
+import { getAuth,onAuthStateChanged } from "firebase/auth";
+import { useRouter } from 'vue-router';
+const auth = getAuth();
+const router=useRouter();
+onAuthStateChanged(auth, (user) => {
+  if (user!=null) {
+    router.push('/home');
+    /* async function setDocu() {
+        const uid = auth.currentUser.uid;
+        const docRef = doc(db, "user", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.data().level) {
+          router.push('/home');
+          console.log('admin')
+        } else {
+          
+          router.push('/newinput');
+          console.log('patient page')
+        }
+      }
+  setDocu(); */
+   
+  }else{
+   
+  }
+})
 const features = [
   {
     name: 'secure',

@@ -4,6 +4,8 @@ import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopu
 import { useRouter } from 'vue-router';
 import { doc,setDoc,getDoc} from "firebase/firestore";
 import {db} from '../main.js'
+import { async } from '@firebase/util';
+
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const router = useRouter();
@@ -18,7 +20,22 @@ const signgoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      router.push('/home');
+      
+      async function setDocu() {
+        const uid = auth.currentUser.uid;
+        const docRef = doc(db, "user", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.data().level) {
+          router.push('/home');
+        } else {
+          // doc.data() will be undefined in this case
+          
+          router.push('/patientDash');
+        }
+      }
+  
+   
+      setDocu();
       // ...
     }).catch((error) => {
       // Handle Errors here.
