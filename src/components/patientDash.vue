@@ -37,8 +37,11 @@ const enable = () => {
 const getrecords = () => {
     web3.eth.getAccounts().then(async function (accounts) {
         let address = accounts[0]
+        
         contract.methods.getRecord(address).call().then(function (result) {
-            console.log(result)
+            console.log(result);
+                document.getElementById("getRecPara").innerHTML = result[0]+ " "+ result[2]+ " "+result[3]+" " +result[1]+" " +result[5];
+            
         });
     })
 }
@@ -73,13 +76,14 @@ const patientName = ref('');
 
 
 const dis = async () => {
-    patientName.value =  auth.currentUser.displayName;
+    patientName.value = auth.currentUser.displayName;
 }
 const Phone = ref('');
 const Appointdate = ref('');
 const prediagnosis = ref('');
 const age = ref('');
 const choosedDocter = ref('');
+const email = ref('');
 const Submit = () => {
     const uid = auth.currentUser.uid;
     if (patientName.value == '' || Phone.value == '' || Appointdate.value == '' || prediagnosis.value == '' || age.value == '' || choosedDocter.value == '') {
@@ -93,9 +97,10 @@ const Submit = () => {
         Diagnosis: prediagnosis.value,
         date: Appointdate.value,
         specialist: choosedDocter.value,
+        status:false
     }).then(() => {
         document.getElementById("confirmbox").innerHTML = "<span style='color: #00A300;'>Appointment Booked</span>"
-        console.log("Document successfully written!");
+        email.value="",Phone.value = "", Appointdate.value = "", prediagnosis.value = "", age.value = "", choosedDocter.value = ""
     }).catch((error) => {
         console.error("Error writing document: ", error);
     });
@@ -186,7 +191,10 @@ dis()
             <button @click="getrecords"
                 :class="[true ? 'bg-indigo-600 text-white ml-5' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
                 :aria-current="true ? 'page' : undefined"> Get Records </button>
-
+                <button @click="enable"
+                :class="[true ? 'bg-indigo-600 text-white ml-5' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
+                :aria-current="true ? 'page' : undefined"> Enable Metamask </button>
+        <p id="getRecPara"></p>
         </div>
     </div>
 </template>

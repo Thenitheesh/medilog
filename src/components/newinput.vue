@@ -39,7 +39,7 @@ const enable = () => {
 
 const addPatients = () => {
   web3.eth.getAccounts().then(async function (accounts) {
-    let address = accounts[0]
+    let address = document.getElementById('acc-address').value
     let fullname = document.getElementById('first-name').value
     let date = document.getElementById('date').value
     let location = document.getElementById('street-address').value + " " + document.getElementById('city').value + " " + document.getElementById('region').value + " " + document.getElementById('postal-code').value
@@ -56,7 +56,7 @@ const addPatients = () => {
 const router = useRouter();
 const addrecord = () => {
   web3.eth.getAccounts().then(async function (accounts) {
-    let address = accounts[0]
+    let address = document.getElementById('acc-address').value
     let desc = document.getElementById('diagnosis').value
     let docname = document.getElementById('docter-name').value
     var today = new Date();
@@ -132,8 +132,8 @@ web3.eth.getAccounts().then(async function (accounts) {
                 </div>
 
                 <div class="col-span-6 sm:col-span-4">
-                  <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                  <input type="text" name="email-address" id="email-address" autocomplete="email"
+                  <label for="email-address" class="block text-sm font-medium text-gray-700">Account address</label>
+                  <input type="text" name="email-address" id="acc-address" 
                     class="mt-1 h-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                 </div>
 
