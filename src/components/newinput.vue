@@ -8,7 +8,8 @@ import Web3 from 'web3/dist/web3.min.js'
 import configuration from '../MedicalRecord.json'
 import { Buffer } from 'buffer'
 import { create, urlSource } from 'ipfs-http-client'
-const CONTRACT_ADDRESS = configuration.networks[5777].address;
+//import 'truffle-hdwallet-provider'
+const CONTRACT_ADDRESS = configuration.networks[5].address;
 const CONTRACT_ABI = configuration.abi;
 const projectId = "2LDvBN1c4nepjCmxjQs8xBBI6ZX"
 const projectSecret = "a5994954fe63db448795c03ee163442c"
@@ -19,7 +20,7 @@ const Ipfs = new create({
     authorization: auth,
   },
 });
-
+//const HDWalletProvider = require('@truffle/hdwallet-provider');
 const upload = async () => {
   const file = document.getElementById('ipfsfile')
   console.log(Ipfs)
@@ -27,7 +28,9 @@ const upload = async () => {
   console.log(result.cid)
 
 }
-const web3 = new Web3(Web3.givenProvider || 'wss://127.0.0.1:8545')
+const MNEMONIC="method aunt core law hungry cabin galaxy silk plate solution loan uniform"
+const PROJECT_ID ="d6514ef113e54594920071757a94b38b"
+const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`))
 
 console.log({ web3 })
 console.log(CONTRACT_ADDRESS)
@@ -39,12 +42,14 @@ const enable = () => {
 
 const addPatients = () => {
   web3.eth.getAccounts().then(async function (accounts) {
+    document.getElementById('overl').style.visibility = "visible";
     let address = document.getElementById('acc-address').value
     let fullname = document.getElementById('first-name').value
     let date = document.getElementById('date').value
     let location = document.getElementById('street-address').value + " " + document.getElementById('city').value + " " + document.getElementById('region').value + " " + document.getElementById('postal-code').value
     contract.methods.addPatient(address, fullname, date, location).send({ from: accounts[0] }).then(async function (){
     let classList = document.getElementById('added').classList
+    document.getElementById('overl').style.visibility = "hidden";
   classList.remove('text-gray-50')
   classList.toggle('text-green-600')}
     )
@@ -56,13 +61,16 @@ const addPatients = () => {
 const router = useRouter();
 const addrecord = () => {
   web3.eth.getAccounts().then(async function (accounts) {
+    document.getElementById('overl').style.visibility = "visible";
     let address = document.getElementById('acc-address').value
     let desc = document.getElementById('diagnosis').value
     let docname = document.getElementById('docter-name').value
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     contract.methods.addRecord(address, desc, docname, date).send({ from: accounts[0] }).then(async function (){
+      
       router.push('/home')
+      document.getElementById('overl').style.visibility = "hidden";
     }
     )
     
@@ -90,7 +98,12 @@ web3.eth.getAccounts().then(async function (accounts) {
     <button @click="upload">submit</button>
   </div>
    -->
-
+   <div class="overlay" id="overl">
+    <div class="overlay__inner">
+        <div class="overlay__content"><span class="spinner"></span></div>
+        <p id="overlay-para">Wait for few seconds to complete the Request </p>
+    </div>
+</div>
   <div class="hidden sm:block" aria-hidden="true">
     <div class="pt-4">
       <button  @click="enable"
@@ -211,11 +224,51 @@ web3.eth.getAccounts().then(async function (accounts) {
 .input {
   font-family: 'Poppins', sans-serif !important;
 }
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+#overlay-para{
+  font-family: 'Poppins', sans-serif !important;
+  position: absolute;
+    top: 59%;
+    left: 39%;
+}
+.overlay {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    visibility: hidden;
+    backdrop-filter: blur(1px);
 }
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.overlay__content {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 3.2px;
+    border-color: rgba(96, 72, 72, 0.05);
+    border-top-color:#5a67d8;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }</style>

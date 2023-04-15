@@ -9,7 +9,7 @@ import Web3 from 'web3/dist/web3.min.js'
 import configuration from '../MedicalRecord.json'
 import { Buffer } from 'buffer'
 import { create, urlSource } from 'ipfs-http-client'
-const CONTRACT_ADDRESS = configuration.networks[5777].address;
+const CONTRACT_ADDRESS = configuration.networks[5].address;
 const CONTRACT_ABI = configuration.abi;
 const auth = getAuth();
 
@@ -28,7 +28,9 @@ const gett = async () => {
       console.log(doc.data());
     }) */
 }
-const web3 = new Web3(Web3.givenProvider || 'wss://127.0.0.1:8545')
+const MNEMONIC="method aunt core law hungry cabin galaxy silk plate solution loan uniform"
+const PROJECT_ID ="d6514ef113e54594920071757a94b38b"
+const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`))
 var contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
 const enable = () => {
