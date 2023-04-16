@@ -1,7 +1,7 @@
-<script setup>
-import { onMounted, ref, onBeforeMount } from 'vue';
+<script  setup>
+import { onMounted, ref, onBeforeMount,reactive } from 'vue';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs , query, where,collection} from "firebase/firestore";
 import { db } from '../main.js'
 import { useRouter } from 'vue-router';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
@@ -23,13 +23,12 @@ country: "USA"
     console.log(doc.data());
   }) */
 }
+
+
+
 const name = ref("");
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-
-    //console.log(user.uid);
     const imageURL = user.photoURL;
     document.getElementById("img").src = imageURL;
 
@@ -46,9 +45,25 @@ const homeMethods = [
   { name: '', href: '/home', current: false },
  
 ]
+console.log(homeMethods[0].name);
+const appointments = collection(db, "appointment");
+
+const q = query(appointments, where("status", "==", false));
+let resultsArray=reactive([])
+
+async function callu() {
+  const querySnapshot =await getDocs(q);
+  querySnapshot.forEach((doc) => {
+  resultsArray.push(doc.data());
+})
+}
+callu();
+
+
 </script>
 
 <template>
+  
   <div class="space-y-1 px-2 pb-3 pt-4">
         <a v-for="item in homeMethods" :key="item.name" as="a" :href="item.href" :class="[item.current ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
       </div>
@@ -117,13 +132,13 @@ const homeMethods = [
                       <th>status</th>
                     </tr>
                   </thead>
-                  <tbody id="tbody1">
+                  <tbody id="tbody1" v-for="item in resultsArray" >
                     <tr>
-                      <td>Mohan chadra</td>
-                      <td>cardiologist</td>
-                      <td>heart pain</td>
-                      <td>25</td>
-                      <td>2008/11/28</td>
+                      <td>{{item.name.slice(0,10)}}</td>
+                      <td>{{item.specialist}}</td>
+                      <td>{{ item.Diagnosis }}</td>
+                      <td>{{ item.age }}</td>
+                      <td>{{ item.date }}</td>
                       <td>completed</td>
                     </tr>
 
@@ -165,8 +180,8 @@ const homeMethods = [
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
   </div>
 
+<button @click="cl">click me</button>
 
-    
 </template>
 
 <style scoped>

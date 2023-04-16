@@ -54,8 +54,21 @@ const signin = (err) => { // we also renamed this method
   //console.log(Email.value, Password.value);
   signInWithEmailAndPassword(auth, Email.value, Password.value) // THIS LINE CHANGED
     .then((data) => {
-      //console.log('Successfully logged in!');
-      router.push('/home') // redirect to the feed
+      async function setDocu() {
+        const uid=data.user.uid;
+        const docRef = doc(db, "user", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.data().level) {
+          router.push('/home');
+        } else {
+          // doc.data() will be undefined in this case
+
+          router.push('/patientDash');
+        }
+      }
+
+
+      setDocu();
     })
     .catch(error => {
       console.log(error.code)
@@ -64,7 +77,16 @@ const signin = (err) => { // we also renamed this method
     })
 }
 
-
+function createPopupWin(pageURL, pageTitle) {
+    let Height = 611;
+         let width = 442;
+         var left = ( screen.width - width ) / 2;
+         var top = ( screen.height - Height ) / 2;
+  var myWindow = window.open(pageURL, pageTitle,
+    'resizable=yes, width=' + width
+    + ', height=' + Height + ', top='
+    + top + ', left=' + left);
+}
 </script>
 
 <template >
@@ -86,6 +108,8 @@ const signin = (err) => { // we also renamed this method
     </div>
     <p class="forpara">Forget Password?</p>
     <button @click="signin" class="loginbtn">Login</button>
+    <button class="newUserPara"  @click="createPopupWin('register',
+      'New User Register')">New User Register</button>
     <p class="belowpara">&copy Nitheesh All Right Reserved</p>
 
     <div class="card2">
@@ -100,6 +124,16 @@ const signin = (err) => { // we also renamed this method
 </template>
 
 <style scoped>
+.newUserPara {
+  position: absolute;
+  left: 19%;
+  top: 78%;
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  color: #5840EF;
+}
+
 .passin {
   background-color: transparent;
   border: none;

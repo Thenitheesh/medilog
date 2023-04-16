@@ -75,7 +75,7 @@ import { getAuth} from "firebase/auth";
   <div class="bg-rgb(245, 245, 245)  pb-24 sm:pb-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:text-center">
-        <!-- <h2 class="text-lg font-semibold leading-8 tracking-tight text-indigo-600 writer-text">Major Inhouse 2023</h2> -->
+        <h2 class="text-lg font-semibold leading-8 tracking-tight text-indigo-600 writer-text">Major Inhouse 2023</h2>
         <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Medical Data governance system using blockchain</p>
         <p class="mt-6 text-lg leading-7 text-gray-600">Blockchain is a distributed ledger system that records transactions in a database made up of blocks where blocks are chained together with the hash value to form a chain-like structure.</p>
       </div>
@@ -101,7 +101,7 @@ import { getAuth} from "firebase/auth";
   <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
     <blockquote>
       <p class="text-lg font-medium">
-        “we implemented this project on blockchain tech with various ipfs(interplanetary 
+        “we implemented this project on blockchain tech along with ipfs(interplanetary 
         file system),truffle framework.”
       </p>
     </blockquote>
@@ -134,12 +134,14 @@ import { getAuth} from "firebase/auth";
         }
         .writer-text {
             display: inline-block;
+            margin-top: 1rem;
             overflow: hidden;
             color: #520164;
             letter-spacing: 2px;
             animation: typing 6s steps(30, end), blink .75s step-end infinite;
             white-space: nowrap;
             font-size: 20px;
+            font-family: Poppins, helvetica, "PingFang SC", Arial;;
             font-weight: 700;
             border-right: 4px solid orange;
             box-sizing: border-box;
@@ -150,7 +152,7 @@ import { getAuth} from "firebase/auth";
                 width: 0% 
             }
             to { 
-                width: 100% 
+                width: 37% 
             }
         }
 
@@ -159,7 +161,7 @@ import { getAuth} from "firebase/auth";
                 border-color: transparent 
             }
             50% { 
-                border-color: orange; 
+                border-color: #5a67d8; ; 
             }
         }
 </style>
