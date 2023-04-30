@@ -9,7 +9,7 @@ import configuration from '../MedicalRecord.json'
 import { Buffer } from 'buffer'
 import { create, urlSource } from 'ipfs-http-client'
 //import 'truffle-hdwallet-provider'
-const CONTRACT_ADDRESS = configuration.networks[5].address;
+const CONTRACT_ADDRESS = configuration.networks[11155111].address;
 const CONTRACT_ABI = configuration.abi;
 const projectId = "2LDvBN1c4nepjCmxjQs8xBBI6ZX"
 const projectSecret = "a5994954fe63db448795c03ee163442c"
@@ -30,7 +30,7 @@ const upload = async () => {
 }
 const MNEMONIC="method aunt core law hungry cabin galaxy silk plate solution loan uniform"
 const PROJECT_ID ="d6514ef113e54594920071757a94b38b"
-const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`))
+const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`))
 
 console.log({ web3 })
 console.log(CONTRACT_ADDRESS)

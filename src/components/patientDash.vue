@@ -9,7 +9,7 @@ import Web3 from 'web3/dist/web3.min.js'
 import configuration from '../MedicalRecord.json'
 import { Buffer } from 'buffer'
 import { create, urlSource } from 'ipfs-http-client'
-const CONTRACT_ADDRESS = configuration.networks[5].address;
+const CONTRACT_ADDRESS = configuration.networks[11155111].address;
 const CONTRACT_ABI = configuration.abi;
 const auth = getAuth();
 
@@ -30,7 +30,7 @@ const gett = async () => {
 }
 const MNEMONIC="method aunt core law hungry cabin galaxy silk plate solution loan uniform"
 const PROJECT_ID ="d6514ef113e54594920071757a94b38b"
-const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`))
+const web3 = new Web3(Web3.givenProvider || new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`))
 var contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
 const enable = () => {
@@ -39,15 +39,20 @@ const enable = () => {
 const getrecords = () => {
     web3.eth.getAccounts().then(async function (accounts) {
         let address = accounts[0]
-        
+        document.getElementById('overl').style.visibility = "visible";
         contract.methods.getRecord(address).call().then(function (result) {
-            console.log(result);
-                document.getElementById("getRecPara").innerHTML = result[0]+ " "+ result[2]+ " "+result[3]+" " +result[1]+" " +result[5];
-            
+                document.getElementById("patientName").innerHTML=result[3];
+                document.getElementById("patiAdree").innerHTML=result[0]; 
+                document.getElementById("descr").innerHTML=result[1]; 
+                document.getElementById("Location").innerHTML=result[5]; 
+                document.getElementById("dob").innerHTML=result[4]; 
+                document.getElementById("docter").innerHTML=result[2]; 
+    document.getElementById('overl').style.visibility = "hidden";
         });
     })
 }
 const name = ref("");
+const patientName = ref('');
 onAuthStateChanged(auth, (user) => {
     if (user != null) {
         // User is signed in, see docs for a list of available properties
@@ -58,6 +63,7 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("img").src = imageURL;
 
         name.value = user.displayName;
+        patientName.value = user.displayName;
     } else {
         router.push('/')
     }
@@ -73,13 +79,6 @@ const bookAppointment = () => {
 }
 
 
-
-const patientName = ref('');
-
-
-const dis = async () => {
-    patientName.value = auth.currentUser.displayName;
-}
 const Phone = ref('');
 const Appointdate = ref('');
 const prediagnosis = ref('');
@@ -99,7 +98,8 @@ const Submit = () => {
         Diagnosis: prediagnosis.value,
         date: Appointdate.value,
         specialist: choosedDocter.value,
-        status:false
+        status:false,
+        profile:auth.currentUser.photoURL
     }).then(() => {
         document.getElementById("confirmbox").innerHTML = "<span style='color: #00A300;'>Appointment Booked</span>"
         email.value="",Phone.value = "", Appointdate.value = "", prediagnosis.value = "", age.value = "", choosedDocter.value = ""
@@ -108,10 +108,15 @@ const Submit = () => {
     });
 
 }
-dis()
 </script>
 
 <template>
+    <div class="overlay" id="overl">
+    <div class="overlay__inner">
+        <div class="overlay__content"><span class="spinner"></span></div>
+        <p id="overlay-para">Wait for few seconds to complete the Request </p>
+    </div>
+</div>
     <div class="space-y-1 px-2 pb-3 pt-4">
         <button @click="bookAppointment"
             :class="[true ? 'bg-indigo-600 text-white ml-3' : 'text-black-300 hover:bg-black-700 hover:text-indigo-500', 'px-3 py-2 rounded-md text-sm font-medium']"
@@ -175,7 +180,11 @@ dis()
                             <option value="">Please choose an option</option>
                             <option value="Cardiologist">Cardiologist</option>
                             <option value="Dentist">Dentist</option>
-
+                            <option value="Neurologists">Neurologists</option>
+                            <option value="Oncologists">Oncologists</option>
+                            <option value="Ophthalmologists">Ophthalmologists</option>
+                            <option value="Diabetologist">Diabetologist</option>
+                            <option value="General Medicine">General Medicine</option>
                         </select>
                     </label>
                 </div>
@@ -198,10 +207,93 @@ dis()
                 :aria-current="true ? 'page' : undefined"> Enable Metamask </button>
         <p id="getRecPara"></p>
         </div>
+    
+    <div>
+    <div class="p-4 sm:px-0">
+      <h3 class="text-base font-semibold leading-7 text-gray-900">Diagnosis</h3>
+      
     </div>
+    <div class="mt-6 p-10 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900 " >Full name</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="patientName"></dd>
+        </div>
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900 " >DoB</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="dob"></dd>
+        </div>
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900" >Patient Address</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="patiAdree"></dd>
+        </div>
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Docter</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="docter"></dd>
+        </div>
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="Location"></dd>
+        </div>
+        <div class="px-4 py-6 mx-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Description</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" id="descr"></dd></div>
+       
+      </dl>
+    </div>
+  </div>
+</div>
 </template>
 
 <style scoped>
+#overlay-para{
+  font-family: 'Poppins', sans-serif !important;
+  position: absolute;
+    top: 59%;
+    left: 39%;
+}
+.overlay {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    visibility: hidden;
+    backdrop-filter: blur(1px);
+}
+
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.overlay__content {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 3.2px;
+    border-color: rgba(96, 72, 72, 0.05);
+    border-top-color:#5a67d8;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 #checkDiag {
     display: none;
 }
