@@ -18,7 +18,7 @@ const upload = async () => {
    document.getElementById('path').href ="https://medilogg.infura-ipfs.io/ipfs/"+rescue.cid.toString()
    document.getElementById("path").innerHTML = "https://medilogg.infura-ipfs.io/ipfs/"+rescue.cid.toString();
 document.getElementById('res').innerHTML = "Uploaded Successfully"
-  document.getElementById('overl').style.visibility = "hidden";
+ document.getElementById('overl').style.visibility = "hidden";
 
 }
 </script>
@@ -26,7 +26,7 @@ document.getElementById('res').innerHTML = "Uploaded Successfully"
     <div class="overlay" id="overl">
     <div class="overlay__inner">
         <div class="overlay__content"><span class="spinner"></span></div>
-        <p id="overlay-para">Wait for few seconds to complete the Request </p>
+        <p id="overlay-para">Uploading the File</p>
     </div>
 </div>
     <div class="mx-10 my-20  p-20">
@@ -56,8 +56,8 @@ document.getElementById('res').innerHTML = "Uploaded Successfully"
 #overlay-para{
   font-family: 'Poppins', sans-serif !important;
   position: absolute;
-    top: 59%;
-    left: 39%;
+    top: 60%;
+    left: 46%;
 }
 .overlay {
     left: 0;
